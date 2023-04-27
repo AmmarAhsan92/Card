@@ -44,7 +44,7 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :role).tap { |params| params[:role] = params[:role].to_i }
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :role).tap { |params| params[:role] = params[:role].to_i }
     end
 end
 

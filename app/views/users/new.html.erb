@@ -1,6 +1,13 @@
 <h1>New User</h1>
 
 <%= form_with model: @user, local: false do |form| %>
+
+  <% if @user.errors.any? %>
+    <% @user.errors.full_messages.each do |message|%>
+      <h3><%= message %> </h3>
+    <%end%>
+  <%end%>
+
   <div>
     <%= form.label :first_name %><br>
     <%= form.text_field :first_name %>

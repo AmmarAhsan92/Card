@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, only: [:sessions]
   resources :users
   resources :tasks
   root 'tasks#index'
