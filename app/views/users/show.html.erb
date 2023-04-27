@@ -1,0 +1,8 @@
+<h1><%= @user.first_name %> <%= @user.last_name %></h1>
+
+<p>Email: <%= @user.email %></p>
+<p>Role: <%= @user.role %></p>
+
+<%= link_to 'Edit', edit_user_path(@user), remote: true %>
+
+<%= link_to 'Back', users_path %>

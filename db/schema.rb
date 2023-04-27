@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_27_115546) do
     t.string "name", default: "", null: false
     t.string "description", default: ""
     t.boolean "is_completed", default: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_tasks_on_user_id"

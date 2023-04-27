@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :authenticate_user!, except: :index
   def index
     @tasks = Task.all
   end
@@ -12,8 +13,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    byebug
-    @task = current_user.tasks.new(task_params)
+    @task = Task.new(task_params)
 
     if @task.save
       redirect_to @task
@@ -45,6 +45,6 @@ class TasksController < ApplicationController
 
   private
     def task_params
-      params.require(:task).permit(:name, :description)
+      params.require(:task).permit(:name, :description, :user_id)
     end
 end
