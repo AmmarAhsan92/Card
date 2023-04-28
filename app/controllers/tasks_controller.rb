@@ -3,7 +3,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy update_task_status]
 
   def index
-    @tasks = Task.all.id_ordered_desc
+    @tasks = Task.all
     authorize @tasks
   end
 
@@ -50,7 +50,7 @@ class TasksController < ApplicationController
 
   def update_task_status
     @task.update(is_completed: params[:is_completed])
-    redirect_back fallback_location: tasks_path
+    redirect_to root_path
   end
 
   private

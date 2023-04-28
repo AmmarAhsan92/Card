@@ -29,12 +29,12 @@ class TaskPolicy < ApplicationPolicy
   def update?
     user.admin?
   end
-  
+
   def destroy?
     user.admin?
   end
 
   def update_task_status?
-    user.team_mate? && @record.user_id == user.id
+    @record.user_id == user.id
   end
 end
