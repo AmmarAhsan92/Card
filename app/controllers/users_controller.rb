@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: %i[show edit update destroy]
-  
+
   def index
     @users = User.all
     authorize @users
@@ -18,8 +18,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     authorize @user
+
     if @user.save
-      redirect_to users_path
+      respond_to do |format|
+        format.turbo_stream
+      end
     else
       render 'new'
     end
@@ -30,7 +33,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to @user
+      redirect_to users_path
     else
       render 'edit'
     end
@@ -52,4 +55,3 @@ class UsersController < ApplicationController
       authorize @user
     end
 end
-

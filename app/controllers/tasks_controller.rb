@@ -3,7 +3,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy update_task_status]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.all.id_ordered_desc
     authorize @tasks
   end
 
@@ -20,7 +20,9 @@ class TasksController < ApplicationController
     authorize @task
 
     if @task.save
-      redirect_to @task
+      respond_to do |format|
+        format.turbo_stream
+      end
     else
       render 'new'
     end
@@ -31,7 +33,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to @task
+      redirect_to root_path
     else
       render 'edit'
     end
@@ -40,7 +42,10 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
 
-    redirect_to tasks_path
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.turbo_stream
+    end
   end
 
   def update_task_status
