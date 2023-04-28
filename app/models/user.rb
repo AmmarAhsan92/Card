@@ -6,11 +6,12 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true, format: { with: /\A[^@\s]+@([^@.\s]+\.)+[^@.\s]+\z/ }
+  validates :role, presence: true
   validate :verify_email_domain
 
   enum role: { admin: 0, team_mate: 1 }
 
-  scope :id_ordered_desc, -> { order(id: :desc) }
+  scope :id_ordered_desc, -> (current_user) { where.not(id: current_user.id).order(id: :desc) }
 
   before_save :update_username, if: :blank_username
 

@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
 
   def index
-    @users = User.all
+    @users = User.id_ordered_desc(current_user)
     authorize @users
   end
 
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :role).tap { |params| params[:role] = params[:role].to_i }
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :role).tap { |params| params[:role] = params[:role].to_i }
     end
 
     def set_user
