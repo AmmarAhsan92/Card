@@ -1,11 +1,14 @@
 
-<%= link_to 'Log in', new_user_session_path, remote: true %>
 <h1>Tasks</h1>
 
 <ul>
   <% @tasks.each do |task| %>
     <li><%= link_to task.name, task %></li>
+    <% if user_signed_in? && task&.user&.id == current_user.id %>
+      <%= button_to 'complete task', update_task_status_task_path(task), method: :patch, params: { is_completed: "#{task.is_completed? ? false : true}" }%>
+    <% end %>
   <% end %>
 </ul>
 
 <%= link_to 'New Task', new_task_path, remote: true %>
+<br>
