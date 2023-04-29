@@ -1,7 +1,7 @@
 <%= turbo_frame_tag task do %>
   <div class='flex flex-row justify-between bg-white border-b hover:bg-gray-50'>
-    <div class='w-1/4 py-4 px-6 text-left font-normal text-sm text-slate-600 whitespace-nowrap'>
-      <p class='text-lg'><%= task.description %></p>
+    <div class='w-1/4 py-4 px-6 text-left font-normal text-sm text-slate-600'>
+      <p class='text-lg truncate'><%= task.description %></p>
     </div>
     <div class='w-1/5 py-4 px-6 text-left font-normal text-sm text-slate-600 whitespace-nowrap'>
       <p class='text-lg'><%= task.created_at.strftime("%m/%d/%Y") %></p>

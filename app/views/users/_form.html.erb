@@ -1,4 +1,10 @@
 <%= form_with model: user do |form| %>
+  <% if user.errors.any? %>
+    <% user.errors.full_messages.each do |message|%>
+      <% flash[:error] = message %>
+      <%= render 'layouts/flash', locals: {flash: flash} %>
+    <%end%>
+  <%end%>
   <div class='mb-6 flex flex-row justify-between gap-4 items-end'>
     <div class='w-1/6'>
       <%= form.label :first_name, class: 'block font-bold mr-5 mb-2 text-sm text-gray-900' %>
